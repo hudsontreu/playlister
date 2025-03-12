@@ -88,6 +88,10 @@ class Playback {
 
   // Play a video using double buffering.
   async playVideo(item) {
+
+    // Log the current video being played.
+    console.log(`ACTIVE: Playing video ${this.currentIndex}: ${item.src}`);
+
     try {
       await this.validateMedia(item.src, "video");
     } catch (error) {
@@ -98,6 +102,13 @@ class Playback {
     this.videoContainer.style.display = "block";
     // (Do not clear the entire media container; just clear the video container.)
     this.videoContainer.innerHTML = "";
+
+    // Clear images and store hours from the media container.
+    Array.from(this.mediaContainer.children).forEach(child => {
+      if (child !== this.videoContainer) {
+        child.remove();
+      }
+    });
 
     // Initialize video elements if not already set.
     if (!this.activeVideo) {
@@ -152,6 +163,9 @@ class Playback {
   // Play an image for its specified duration.
   // The image will be shown at its natural size in the top‑left.
   async playImage(item) {
+    // Log the current image being displayed.
+    console.log(`ACTIVE: Displaying image ${this.currentIndex}: ${item.src} for ${item.duration} seconds`);
+
     try {
       await this.validateMedia(item.src, "image");
     } catch (error) {
@@ -176,6 +190,9 @@ class Playback {
     img.style.height = "auto";
     this.mediaContainer.appendChild(img);
 
+    // Display store hours beneath the image.
+    this.displayStoreHours();
+
     // Preload the next video if the next item is a video.
     var nextIndex = (this.currentIndex + 1) % this.sequence.length;
     var nextItem = this.sequence[nextIndex];
@@ -189,6 +206,38 @@ class Playback {
     }
 
     this.timeoutId = setTimeout(() => { this.next(); }, item.duration * 1000);
+  }
+
+  displayStoreHours() {
+    // Get the hours content from hoursData.hours using the storeNumber from config
+    let storeHours = hoursData.hours.find(hours => hours.storeNumber === config.storeNumber);
+    if (!storeHours) {
+      console.error("Invalid store number: " + config.storeNumber);
+      return;
+    }
+
+    let hoursText = document.createElement("h1");
+    hoursText.textContent = "Store Hours: " + storeHours.hours;
+    hoursText.style.fontFamily = "Arial, sans-serif";
+    hoursText.style.color = "white";
+    hoursText.style.fontSize = "68px";
+    hoursText.style.fontWeight = "bold";
+    hoursText.style.textAlign = "center";
+    hoursText.style.transform = "rotate(-90deg)";
+
+    let hoursDiv = document.createElement("div");
+    hoursDiv.style.display = "flex";
+    hoursDiv.style.flexDirection = "column";
+    hoursDiv.style.justifyContent = "center";
+    hoursDiv.style.alignItems = "center";
+    hoursDiv.style.position = "absolute";
+    hoursDiv.style.top = "0";
+    hoursDiv.style.right = "0";
+    hoursDiv.style.width = "1280px";
+    hoursDiv.style.height = "100%";
+    hoursDiv.style.backgroundColor = "green";
+    hoursDiv.appendChild(hoursText);
+    this.mediaContainer.appendChild(hoursDiv);
   }
 
   // Advance to the next media item.
@@ -223,3 +272,4 @@ function initializePlayer() {
 document.addEventListener("DOMContentLoaded", function() {
   initializePlayer();
 });
+
