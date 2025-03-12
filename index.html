@@ -3,24 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=3840, height=2160" />
+  <link rel="stylesheet" href="css/style.css" />
   <title>PlayBack</title>
-  <style>
-    /* CSS reset to ensure the viewport is exactly filled */
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: white; /* In case of any blank areas */
-    }
-  </style>
 </head>
 <body>
+  <button onclick="document.documentElement.requestFullscreen()" style="position: absolute; top: 0px; left: 0px; z-index: 200;">Go Fullscreen</button>
   <!-- Load configuration first -->
   <script src="js/config.js"></script>
-  <!-- Load store hours -->
-  <script src="js/storeHours.js"></script>
+  <!-- Load store data -->
+  <script src="js/storeData.js"></script>
   <!-- Then load the app logic -->
   <script src="js/app.js"></script>
 </body>

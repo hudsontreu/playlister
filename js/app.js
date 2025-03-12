@@ -190,8 +190,9 @@ class Playback {
     img.style.height = "auto";
     this.mediaContainer.appendChild(img);
 
-    // Display store hours beneath the image.
-    this.displayStoreHours();
+    // Generate and append store hours
+    const storeHoursContainer = this.generateStoreHours();
+    this.mediaContainer.appendChild(storeHoursContainer);
 
     // Preload the next video if the next item is a video.
     var nextIndex = (this.currentIndex + 1) % this.sequence.length;
@@ -208,36 +209,86 @@ class Playback {
     this.timeoutId = setTimeout(() => { this.next(); }, item.duration * 1000);
   }
 
-  displayStoreHours() {
-    // Get the hours content from hoursData.hours using the storeNumber from config
-    let storeHours = hoursData.hours.find(hours => hours.storeNumber === config.storeNumber);
-    if (!storeHours) {
-      console.error("Invalid store number: " + config.storeNumber);
+  generateStoreHours() {
+    // Get store data based on config store number
+    const store = storeData.stores.find(store => store.storeNumber === config.storeNumber);
+    console.log(store);
+    if (!store) {
+      console.error("Store not found");
       return;
     }
 
-    let hoursText = document.createElement("h1");
-    hoursText.textContent = "Store Hours: " + storeHours.hours;
-    hoursText.style.fontFamily = "Arial, sans-serif";
-    hoursText.style.color = "white";
-    hoursText.style.fontSize = "68px";
-    hoursText.style.fontWeight = "bold";
-    hoursText.style.textAlign = "center";
-    hoursText.style.transform = "rotate(-90deg)";
+    // Create container structure
+    const storeHoursContainer = document.createElement('div');
+    storeHoursContainer.className = 'storeHoursContainer';
 
-    let hoursDiv = document.createElement("div");
-    hoursDiv.style.display = "flex";
-    hoursDiv.style.flexDirection = "column";
-    hoursDiv.style.justifyContent = "center";
-    hoursDiv.style.alignItems = "center";
-    hoursDiv.style.position = "absolute";
-    hoursDiv.style.top = "0";
-    hoursDiv.style.right = "0";
-    hoursDiv.style.width = "1280px";
-    hoursDiv.style.height = "100%";
-    hoursDiv.style.backgroundColor = "green";
-    hoursDiv.appendChild(hoursText);
-    this.mediaContainer.appendChild(hoursDiv);
+    const content = document.createElement('div');
+    content.className = 'content';
+
+    const headline = document.createElement('div');
+    headline.className = 'headline';
+
+    // Add headline content
+    const h1 = document.createElement('h1');
+    h1.textContent = 'Office Hours';
+    const h3 = document.createElement('h3');
+    h3.textContent = store.address;
+
+    headline.appendChild(h1);
+    headline.appendChild(h3);
+
+    // Create bottom block
+    const bottomBlock = document.createElement('div');
+    bottomBlock.className = 'bottom-block';
+
+    // Create week list
+    const weekList = document.createElement('div');
+    weekList.className = 'week-list';
+
+    // Array of days for iteration
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    
+    days.forEach(day => {
+      const dayBlock = document.createElement('div');
+      dayBlock.className = 'day-block';
+
+      const dayName = document.createElement('h2');
+      dayName.className = 'dayOfWeek';
+      dayName.textContent = day.charAt(0).toUpperCase() + day.slice(1) + ':';
+
+      const hours = document.createElement('p');
+      hours.className = 'hours';
+      hours.textContent = store[day];
+
+      dayBlock.appendChild(dayName);
+      dayBlock.appendChild(hours);
+      weekList.appendChild(dayBlock);
+    });
+
+    // Create QR block
+    const qrBlock = document.createElement('div');
+    qrBlock.className = 'qr-block';
+
+    const qrCode = document.createElement('img');
+    qrCode.className = 'qr-code';
+    qrCode.src = store['qr-code'];
+    qrCode.alt = 'QR Code';
+
+    const qrText = document.createElement('h3');
+    qrText.className = 'qr-text';
+    qrText.textContent = 'Make an appointment or find another office';
+
+    qrBlock.appendChild(qrCode);
+    qrBlock.appendChild(qrText);
+
+    // Assemble the components
+    bottomBlock.appendChild(weekList);
+    bottomBlock.appendChild(qrBlock);
+    content.appendChild(headline);
+    content.appendChild(bottomBlock);
+    storeHoursContainer.appendChild(content);
+
+    return storeHoursContainer;
   }
 
   // Advance to the next media item.

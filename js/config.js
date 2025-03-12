@@ -1,23 +1,23 @@
 const config = {
     "title": "My Playlist",
-    "storeNumber": "1",
+    "storeNumber": "0",
     "apiUrl": "",
     "medaiUrl": "",
     "playbackSequenece": [
       {
         "type": "image",
-        "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
-        "duration": 5
-      },
-      {
-        "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-upper.jpg",
-        "duration": 5
+        "duration": 20
       },
       {
         "type": "video",
         "src": "assets/videos/s3/welcome-01-uhd.mp4",
         "duration": null
+      },
+      {
+        "type": "image",
+        "src": "assets/images/bL-Halves/emerald-advance-loan-upper.jpg",
+        "duration": 20
       },
       {
         "type": "video",

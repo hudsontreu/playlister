@@ -1,0 +1,122 @@
+:root {
+    --foreground-primary: #F2F4E9;
+    --foreground-secondary: #01EA5D;
+    --background: #013511;
+    --font-family: 'Inter', sans-serif;
+  }
+
+  /* CSS reset to ensure the viewport is exactly filled */
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: white; /* In case of any blank areas */
+    box-sizing: border-box;
+  }
+
+  .storeHoursContainer {
+    position: absolute;
+    display: flex;
+    width: 2160px;
+    height: 1280px;
+    padding: 136px 240px;
+    flex-direction: column;
+    background: var(--background, #013511);
+    box-sizing: border-box;
+    z-index: 100;
+    top: 0;
+    left: 400px;
+    transform-origin: top right;
+    transform: rotate(-90deg);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+  }
+
+  h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    color: var(--white-text, #F2F4E9);
+    font-family: var(--font-family);
+    font-size: 148px;
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  h3 {
+    color: var(--green-text, #01EA5D);
+    font-family: var(--font-family);
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .bottom-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .week-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .day-block {
+    display: flex;
+    align-items: center;
+    gap: 52px;
+  }
+
+  .dayOfWeek {
+    color: var(--foreground-primary);
+    font-family: var(--font-family);
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 800;
+    width: 386px;
+  }
+
+  .hours {
+    color: var(--foreground-secondary);
+    font-family: Inter;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .qr-block {
+    display: flex;
+    width: 391px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
+
+  .qr-code {
+    height: 372px;
+    aspect-ratio: 1/1;
+  }
+
+  .qr-text {
+    color: var(--green-text, #01EA5D);
+    font-family: var(--font-family);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
