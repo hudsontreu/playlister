@@ -1,13 +1,23 @@
-const config = {
+var config = {
     "title": "My Playlist",
-    "storeNumber": "0",
+    "storeNumber": "1",
     "apiUrl": "",
     "medaiUrl": "",
     "playbackSequenece": [
       {
+        "type": "image",
+        "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
+        "duration": 50
+      },
+      {
         "type": "video",
         "src": "assets/videos/s3/welcome-01-uhd.mp4",
         "duration": null
+      },
+      {
+        "type": "image",
+        "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
+        "duration": 5
       },
       {
         "type": "video",

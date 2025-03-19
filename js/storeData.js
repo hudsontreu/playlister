@@ -1,4 +1,4 @@
-const storeData = {
+var storeData = {
     "stores": [
       {
         "storeNumber": "0",
