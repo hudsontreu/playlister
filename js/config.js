@@ -7,7 +7,20 @@ const config = {
       {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
-        "duration": 5
+        "duration": 5,
+        "transition": "fade"
+      },
+      {
+        "type": "image",
+        "src": "assets/images/bL-Halves/emerald-advance-loan-upper.jpg",
+        "duration": 5,
+        "transition": "slide-up"
+      },
+      {
+        "type": "image",
+        "src": "assets/images/bL-Halves/extension-filing-upper.jpg",
+        "duration": 5,
+        "transition": "slide-down"
       },
       {
         "type": "video",
@@ -17,7 +30,8 @@ const config = {
       {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
-        "duration": 5
+        "duration": 5,
+        "transition": "fade"
       },
       {
         "type": "video",
@@ -27,12 +41,14 @@ const config = {
       {
         "type": "image",
         "src": "assets/images/bL-Halves/extension-filing-upper.jpg",
-        "duration": 5
+        "duration": 5,
+        "transition": "slide-left"
       },
       {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
-        "duration": 5
+        "duration": 5,
+        "transition": "slide-right"
       },
       {
         "type": "video",
@@ -47,17 +63,20 @@ const config = {
       {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
-        "duration": 5
+        "duration": 5,
+        "transition": "slide-up"
       },
       {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-upper.jpg",
-        "duration": 5
+        "duration": 5,
+        "transition": "fade"
       },
       {
         "type": "image",
         "src": "assets/images/bL-Halves/extension-filing-upper.jpg",
-        "duration": 5
+        "duration": 5,
+        "transition": "slide-down"
       },
       {
         "type": "video",

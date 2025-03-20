@@ -178,37 +178,29 @@ class Playback {
       return this.next();
     }
     // Hide the video container so it does not interfere with the image.
-    this.videoContainer.style.display = "none";
+    // this.videoContainer.style.display = "none";
+
     // Clear the media container (but then re-append the video container for future videos).
-    this.mediaContainer.innerHTML = "";
-    this.mediaContainer.appendChild(this.videoContainer);
+    // this.mediaContainer.innerHTML = "";
+    // this.mediaContainer.appendChild(this.videoContainer);
 
     // Create a container for the image and store hours
     const imageContainer = document.createElement("div");
-    imageContainer.className = "image-container";
-    imageContainer.style.position = "absolute";
-    imageContainer.style.top = "0";
-    imageContainer.style.left = "0";
-    imageContainer.style.width = "100%";
-    imageContainer.style.height = "100%";
-    imageContainer.style.transform = 'translateX(100%)';
-    imageContainer.style.opacity = '0'
+    imageContainer.className = `image-container ${item.transition}`;
 
     // Create and setup the image element
     const img = document.createElement("img");
     img.src = item.src;
-    img.style.position = "absolute";
-    img.style.top = "0";
-    img.style.left = "0";
-    img.style.width = "auto";
-    img.style.height = "auto";
 
     // Add image and store hours to the container
     imageContainer.appendChild(img);
     imageContainer.appendChild(APP_STATE.storeHoursContainer.cloneNode(true));
 
-    // Add the new container to the media container
+    // Add the new container to the media container BEFORE clearing it.
     this.mediaContainer.appendChild(imageContainer);
+
+    // Force browser reflow
+    imageContainer.offsetHeight;
 
     // Trigger animation after element is added to DOM
     requestAnimationFrame(() => {
