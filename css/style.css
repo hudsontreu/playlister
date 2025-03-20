@@ -134,19 +134,19 @@
 }
 
   /* Initial states for different transitions */
-  .slide-left {
+  .slide-up {
       transform: translateX(100%);
   }
 
-  .slide-right {
+  .slide-down {
       transform: translateX(-100%);
   }
 
-  .slide-up {
+  .slide-right {
       transform: translateY(100%);
   }
 
-  .slide-down {
+  .slide-left {
       transform: translateY(-100%);
   }
 

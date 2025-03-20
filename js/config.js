@@ -8,7 +8,7 @@ const config = {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
         "duration": 5,
-        "transition": "fade"
+        "transition": "slide-right"
       },
       {
         "type": "image",
