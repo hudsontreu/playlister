@@ -177,8 +177,6 @@ class Playback {
       console.error(error.message);
       return this.next();
     }
-    // Hide the video container so it does not interfere with the image.
-    // this.videoContainer.style.display = "none";
 
     // Clear the media container (but then re-append the video container for future videos).
     // this.mediaContainer.innerHTML = "";
@@ -207,6 +205,18 @@ class Playback {
       imageContainer.style.transform = 'translateX(0)';
       imageContainer.style.opacity = '1';
     });
+
+    // Clean up previous content after transition completes
+    setTimeout(() => {
+      const children = Array.from(this.mediaContainer.children);
+      children.forEach(child => {
+          if (child !== imageContainer && child !== this.videoContainer) {
+              child.remove();
+          }
+      });
+      // Only hide video container after transition
+      this.videoContainer.style.display = 'none';
+  }, 500); // Match transition duration from CSS
 
     // Preload the next video if the next item is a video.
     var nextIndex = (this.currentIndex + 1) % this.sequence.length;

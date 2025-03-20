@@ -11,10 +11,20 @@ const config = {
         "transition": "slide-right"
       },
       {
+        "type": "video",
+        "src": "assets/videos/s3/no-hidden-fees-here-uhd.mp4",
+        "duration": null
+      },
+      {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-upper.jpg",
         "duration": 5,
         "transition": "slide-up"
+      },
+      {
+        "type": "video",
+        "src": "assets/videos/s3/no-hidden-fees-here-uhd.mp4",
+        "duration": null
       },
       {
         "type": "image",
@@ -42,7 +52,7 @@ const config = {
         "type": "image",
         "src": "assets/images/bL-Halves/extension-filing-upper.jpg",
         "duration": 5,
-        "transition": "slide-left"
+        "transition": "fade"
       },
       {
         "type": "image",
@@ -64,7 +74,7 @@ const config = {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
         "duration": 5,
-        "transition": "slide-up"
+        "transition": "fade"
       },
       {
         "type": "image",
