@@ -5,12 +5,6 @@ const config = {
     "medaiUrl": "",
     "playbackSequenece": [
       {
-        "type": "image",
-        "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
-        "duration": 5,
-        "transition": "slide-right"
-      },
-      {
         "type": "video",
         "src": "assets/videos/s3/no-hidden-fees-here-uhd.mp4",
         "duration": null
@@ -19,18 +13,7 @@ const config = {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-upper.jpg",
         "duration": 5,
-        "transition": "slide-up"
-      },
-      {
-        "type": "video",
-        "src": "assets/videos/s3/no-hidden-fees-here-uhd.mp4",
-        "duration": null
-      },
-      {
-        "type": "image",
-        "src": "assets/images/bL-Halves/extension-filing-upper.jpg",
-        "duration": 5,
-        "transition": "slide-down"
+        "transition": "fade"
       },
       {
         "type": "video",
@@ -41,7 +24,7 @@ const config = {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
         "duration": 5,
-        "transition": "fade"
+        "transition": "slide-right"
       },
       {
         "type": "video",
@@ -74,7 +57,7 @@ const config = {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
         "duration": 5,
-        "transition": "fade"
+        "transition": "slide-up"
       },
       {
         "type": "image",
@@ -86,7 +69,7 @@ const config = {
         "type": "image",
         "src": "assets/images/bL-Halves/extension-filing-upper.jpg",
         "duration": 5,
-        "transition": "slide-down"
+        "transition": "fade"
       },
       {
         "type": "video",
