@@ -1,3 +1,7 @@
+const APP_STATE = {
+  storeHoursContainer: null
+};
+
 class Playback {
   constructor(sequence) {
     this.sequence = sequence;
@@ -30,6 +34,9 @@ class Playback {
 
     // For image transitions.
     this.timeoutId = null;
+
+    // Add tracking for current media element
+    this.currentMediaElement = null;
   }
 
   // Helper: create a video element with common settings.
@@ -95,6 +102,7 @@ class Playback {
       console.error(error.message);
       return this.next();
     }
+    
     // Make sure the video container is visible.
     this.videoContainer.style.display = "block";
     // (Do not clear the entire media container; just clear the video container.)
@@ -175,22 +183,38 @@ class Playback {
     this.mediaContainer.innerHTML = "";
     this.mediaContainer.appendChild(this.videoContainer);
 
-    // Create the image element.
-    var img = document.createElement("img");
+    // Create a container for the image and store hours
+    const imageContainer = document.createElement("div");
+    imageContainer.className = "image-container";
+    imageContainer.style.position = "absolute";
+    imageContainer.style.top = "0";
+    imageContainer.style.left = "0";
+    imageContainer.style.width = "100%";
+    imageContainer.style.height = "100%";
+    imageContainer.style.transform = 'translateX(100%)';
+    imageContainer.style.opacity = '0'
+
+    // Create and setup the image element
+    const img = document.createElement("img");
     img.src = item.src;
-    // Display the image at its natural size by not forcing width/height.
-    // Position it at the top‑left.
     img.style.position = "absolute";
     img.style.top = "0";
     img.style.left = "0";
     img.style.width = "auto";
     img.style.height = "auto";
-    // img.style.objectFit = "cover";
-    this.mediaContainer.appendChild(img);
 
-    // Generate and append store hours
-    var storeHoursContainer = this.generateStoreHours();
-    this.mediaContainer.appendChild(storeHoursContainer);
+    // Add image and store hours to the container
+    imageContainer.appendChild(img);
+    imageContainer.appendChild(APP_STATE.storeHoursContainer.cloneNode(true));
+
+    // Add the new container to the media container
+    this.mediaContainer.appendChild(imageContainer);
+
+    // Trigger animation after element is added to DOM
+    requestAnimationFrame(() => {
+      imageContainer.style.transform = 'translateX(0)';
+      imageContainer.style.opacity = '1';
+    });
 
     // Preload the next video if the next item is a video.
     var nextIndex = (this.currentIndex + 1) % this.sequence.length;
@@ -208,85 +232,6 @@ class Playback {
     this.timeoutId = setTimeout(function() { 
       self.next(); 
     }, item.duration * 1000);
-  }
-
-  generateStoreHours() {
-    // Get store data based on config store number
-    var store = storeData.stores.filter(function(store) {
-      return store.storeNumber === config.storeNumber;
-    })[0];
-    // Create container structure
-    var storeHoursContainer = document.createElement('div');
-    storeHoursContainer.className = 'storeHoursContainer';
-
-    var content = document.createElement('div');
-    content.className = 'content';
-
-    var headline = document.createElement('div');
-    headline.className = 'headline';
-
-    // Add headline content
-    var h1 = document.createElement('h1');
-    h1.textContent = 'Office Hours';
-    var h3 = document.createElement('h3');
-    h3.textContent = store.address;
-
-    headline.appendChild(h1);
-    headline.appendChild(h3);
-
-    // Create bottom block
-    var bottomBlock = document.createElement('div');
-    bottomBlock.className = 'bottom-block';
-
-    // Create week list
-    var weekList = document.createElement('div');
-    weekList.className = 'week-list';
-
-    // Array of days for iteration
-    var days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-    
-    for (var i = 0; i < days.length; i++) {
-      var day = days[i];
-      var dayBlock = document.createElement('div');
-      dayBlock.className = 'day-block';
-
-      var dayName = document.createElement('h2');
-      dayName.className = 'dayOfWeek';
-      dayName.textContent = day.charAt(0).toUpperCase() + day.slice(1) + ':';
-
-      var hours = document.createElement('p');
-      hours.className = 'hours';
-      hours.textContent = store[day];
-
-      dayBlock.appendChild(dayName);
-      dayBlock.appendChild(hours);
-      weekList.appendChild(dayBlock);
-    };
-
-    // Create QR block
-    var qrBlock = document.createElement('div');
-    qrBlock.className = 'qr-block';
-
-    var qrCode = document.createElement('img');
-    qrCode.className = 'qr-code';
-    qrCode.src = store['qr-code'];
-    qrCode.alt = 'QR Code';
-
-    var qrText = document.createElement('h3');
-    qrText.className = 'qr-text';
-    qrText.textContent = 'Make an appointment or find another office';
-
-    qrBlock.appendChild(qrCode);
-    qrBlock.appendChild(qrText);
-
-    // Assemble the components
-    bottomBlock.appendChild(weekList);
-    bottomBlock.appendChild(qrBlock);
-    content.appendChild(headline);
-    content.appendChild(bottomBlock);
-    storeHoursContainer.appendChild(content);
-
-    return storeHoursContainer;
   }
 
   // Advance to the next media item.
@@ -311,6 +256,12 @@ class Playback {
 
 function initializePlayer() {
   try {
+    // Generate store hours first
+    APP_STATE.storeHoursContainer = generateStoreHours();
+    if (!APP_STATE.storeHoursContainer) {
+      throw new Error("Failed to generate store hours");
+    }
+    // Then initialize player
     var player = new Playback(config.playbackSequenece);
     player.start();
   } catch (error) {
@@ -322,3 +273,87 @@ document.addEventListener("DOMContentLoaded", function() {
   initializePlayer();
 });
 
+
+
+function generateStoreHours() {
+  // Get store data based on config store number
+  const store = storeData.stores.find(store => store.storeNumber === config.storeNumber);
+
+  if (!store) {
+    console.error(`Store number ${config.storeNumber} not found`);
+    return null;
+  }
+
+  // Create container structure
+  var storeHoursContainer = document.createElement('div');
+  storeHoursContainer.className = 'storeHoursContainer';
+
+  var content = document.createElement('div');
+  content.className = 'content';
+
+  var headline = document.createElement('div');
+  headline.className = 'headline';
+
+  // Add headline content
+  var h1 = document.createElement('h1');
+  h1.textContent = 'Office Hours';
+  var h3 = document.createElement('h3');
+  h3.textContent = store.address;
+
+  headline.appendChild(h1);
+  headline.appendChild(h3);
+
+  // Create bottom block
+  var bottomBlock = document.createElement('div');
+  bottomBlock.className = 'bottom-block';
+
+  // Create week list
+  var weekList = document.createElement('div');
+  weekList.className = 'week-list';
+
+  // Array of days for iteration
+  var days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+  
+  for (var i = 0; i < days.length; i++) {
+    var day = days[i];
+    var dayBlock = document.createElement('div');
+    dayBlock.className = 'day-block';
+
+    var dayName = document.createElement('h2');
+    dayName.className = 'dayOfWeek';
+    dayName.textContent = day.charAt(0).toUpperCase() + day.slice(1) + ':';
+
+    var hours = document.createElement('p');
+    hours.className = 'hours';
+    hours.textContent = store[day];
+
+    dayBlock.appendChild(dayName);
+    dayBlock.appendChild(hours);
+    weekList.appendChild(dayBlock);
+  };
+
+  // Create QR block
+  var qrBlock = document.createElement('div');
+  qrBlock.className = 'qr-block';
+
+  var qrCode = document.createElement('img');
+  qrCode.className = 'qr-code';
+  qrCode.src = store['qr-code'];
+  qrCode.alt = 'QR Code';
+
+  var qrText = document.createElement('h3');
+  qrText.className = 'qr-text';
+  qrText.textContent = 'Make an appointment or find another office';
+
+  qrBlock.appendChild(qrCode);
+  qrBlock.appendChild(qrText);
+
+  // Assemble the components
+  bottomBlock.appendChild(weekList);
+  bottomBlock.appendChild(qrBlock);
+  content.appendChild(headline);
+  content.appendChild(bottomBlock);
+  storeHoursContainer.appendChild(content);
+
+  return storeHoursContainer;
+}

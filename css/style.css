@@ -120,3 +120,24 @@
     font-weight: 700;
     line-height: normal;
   }
+
+  /* Transitions */
+  /* .image-container {
+    transform: translateX(100%); 
+    transition: transform 0.5s ease-out;
+    backface-visibility: hidden; 
+} */
+/* 
+.image-container {
+  transform: translateX(100%);
+  opacity: 0;
+  
+  transition: 
+      transform 0.5s ease-out,
+      opacity 0.5s ease-in;
+}
+
+.image-container.active {
+  transform: translateX(0);
+  opacity: 1;
+} */

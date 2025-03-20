@@ -1,4 +1,4 @@
-var config = {
+const config = {
     "title": "My Playlist",
     "storeNumber": "1",
     "apiUrl": "",
@@ -7,7 +7,7 @@ var config = {
       {
         "type": "image",
         "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
-        "duration": 50
+        "duration": 5
       },
       {
         "type": "video",
@@ -23,6 +23,16 @@ var config = {
         "type": "video",
         "src": "assets/videos/s3/welcome-01-es-uhd.mp4",
         "duration": null
+      },
+      {
+        "type": "image",
+        "src": "assets/images/bL-Halves/extension-filing-upper.jpg",
+        "duration": 5
+      },
+      {
+        "type": "image",
+        "src": "assets/images/bL-Halves/emerald-advance-loan-holidays-upper.jpg",
+        "duration": 5
       },
       {
         "type": "video",
