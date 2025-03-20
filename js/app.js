@@ -160,10 +160,10 @@ class Playback {
       // If the next item is not a video, exit video mode.
       if (this.activeVideo) {
         this.activeVideo.pause();
-        this.activeVideo.src = "";
+        // this.activeVideo.src = "";
       }
-      this.activeVideo = null;
-      this.inactiveVideo = null;
+      // this.activeVideo = null;
+      // this.inactiveVideo = null;
       this.playSequence();
     }
   }
